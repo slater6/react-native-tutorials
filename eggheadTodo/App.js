@@ -19,13 +19,17 @@ export default class App extends Component {
     this.state = {
       allComplete: false,
       value:"",
+      filter : 'ALL',
       items:[],
       dataSource: ds.cloneWithRows([])
     }
 
     this.setSource = this.setSource.bind(this)
+    this.handleRemoveItem = this.handleRemoveItem.bind(this)
+    this.handleFilterItems = this.handleFilterItems.bind(this)
     this.handleAddItem = this.handleAddItem.bind(this)
     this.handleToggleAllComplete = this.handleToggleAllComplete.bind(this)
+    this.handleToggleComplete = this.handleToggleComplete.bind(this)
   }
 
   handleToggleAllComplete(){
@@ -39,6 +43,19 @@ export default class App extends Component {
     
     this.setSource(newItems, newItems, {allComplete:complete})
     
+  }
+
+  handleToggleComplete(key,complete){
+    const newItems = this.state.items.map( (item) => {
+      if(item.key !== key) return item
+
+      return {
+        ...item,
+        complete
+      }
+    })
+
+    this.setSource(newItems,newItems)
   }
 
   handleAddItem(){
@@ -55,6 +72,24 @@ export default class App extends Component {
 
     this.setSource(newItems, newItems, {value:''})
 
+  }
+
+  handleRemoveItem(key){
+    const newItems = this.state.items.filter( (item) => {
+      return item.key !== key
+    })
+
+    this.setSource(newItems,newItems)
+  }
+
+  handleFilterItems(filter){
+    const filteredItems = this.state.items.filter( item => {
+      if(filter === 'ALL') return true
+      if(filter === 'ACTIVE') return !item.complete
+      if(filter === 'COMPLETED') return item.complete
+    })
+
+    this.setSource(this.state.items,filteredItems, { filter })
   }
 
   setSource(items,itemsDataSource, otherState){
@@ -86,6 +121,8 @@ export default class App extends Component {
                 return (
                   <Row 
                     key={key}
+                    onComplete={(complete) => this.handleToggleComplete(key,complete)}
+                    onRemove={() => this.handleRemoveItem(key)}
                     {...value}
                   />
                 )
@@ -96,7 +133,10 @@ export default class App extends Component {
             }}
           />
         </View>
-        <Footer></Footer>
+        <Footer
+          onFilter={this.handleFilterItems} 
+          filter={this.state.filter} 
+        />
       </View>
     )
   }

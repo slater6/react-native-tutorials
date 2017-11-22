@@ -2,14 +2,26 @@ import React, { Component } from 'react'
 import { 
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Switch,
+  TouchableOpacity
 } from 'react-native'
 
 export default class Row extends Component {
   render(){
+    const { complete } = this.props
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>{this.props.text}</Text>
+        <Switch
+          value={this.props.complete}
+          onValueChange={this.props.onComplete}
+        />
+        <View style={styles.textWrap}>
+          <Text style={[styles.text, complete && styles.complete]}>{this.props.text}</Text>
+        </View>
+        <TouchableOpacity onPress={this.props.onRemove}>
+          <Text style={styles.destory}>X</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -26,5 +38,17 @@ const styles = StyleSheet.create({
   text:{
     fontSize:24,
     color: '#4d4d4d'
+  },
+  textWrap:{
+    flex:1,
+    marginHorizontal:10
+  },
+  complete:{
+    textDecorationLine:"line-through"
+  },
+  destory:{
+    fontSize: 20,
+    color:'#cc9a9a',
+    marginHorizontal:10
   }
 })
