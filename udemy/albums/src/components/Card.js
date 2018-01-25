@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 const styles = {
   containerStyle: {
@@ -21,9 +21,8 @@ const styles = {
   },
 };
 
-const Card = (props) => {
-  console.log('Props', props);
-  return <View style={styles.containerStyle}>{props.children}</View>;
-};
+const Card = props => (
+  <View style={styles.containerStyle}>{props.children}</View>
+);
 
 export default Card;
