@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Text, View } from 'react-native';
+import { Text, ScrollView } from 'react-native';
 import axios from 'axios';
 
 import AlbumDetail from './AlbumDetail';
@@ -13,8 +13,6 @@ class AlbumList extends PureComponent {
     );
 
     this.setState({ albums: result.data });
-
-    console.log(this.state.albums);
   }
 
   renderAlbums = () => {
@@ -24,7 +22,7 @@ class AlbumList extends PureComponent {
   };
 
   render() {
-    return <View>{this.renderAlbums()}</View>;
+    return <ScrollView>{this.renderAlbums()}</ScrollView>;
   }
 }
 
