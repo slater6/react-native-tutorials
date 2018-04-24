@@ -3737,6 +3737,10 @@ react-devtools-core@3.0.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-kill-packager@^1.0.0:
+  version "1.0.0"
+  resolved "http://npm.dev.studioweare.com/react-native-kill-packager/-/react-native-kill-packager-1.0.0.tgz#8d5dc706429805800298acabca45598d0d39b391"
+
 react-native@0.52.2:
   version "0.52.2"
   resolved "http://npm.dev.studioweare.com/react-native/-/react-native-0.52.2.tgz#1ae9a4c4441bd6e54a8ffc8aae4ac2b5c7cccd68"

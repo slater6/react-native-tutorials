@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "packager:kill": "react-native-kill-packager",
+    "packager:restart": "react-native-kill-packager; npm start"
   },
   "dependencies": {
     "firebase": "^4.9.0",
@@ -15,6 +17,7 @@
     "babel-jest": "22.1.0",
     "babel-preset-react-native": "4.0.0",
     "jest": "22.1.4",
+    "react-native-kill-packager": "^1.0.0",
     "react-test-renderer": "16.2.0"
   },
   "jest": {
