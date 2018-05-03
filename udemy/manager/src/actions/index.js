@@ -15,7 +15,12 @@ export const passwordChanged = text => {
   };
 };
 
-export const loginUser = async ({ email, password }) => {
+export const loginUser = ({ email, password }) => async dispatch => {
   user = await firebase.auth().signInWithEmailAndPassword(email, password);
-  console.log(user);
+  if (user) {
+    return dispatch({
+      type: LOGIN_USER_SUCCESS,
+      payload: user
+    });
+  }
 };
