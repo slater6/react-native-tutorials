@@ -16,11 +16,24 @@ export const passwordChanged = text => {
 };
 
 export const loginUser = ({ email, password }) => async dispatch => {
-  user = await firebase.auth().signInWithEmailAndPassword(email, password);
-  if (user) {
-    return dispatch({
-      type: LOGIN_USER_SUCCESS,
-      payload: user
-    });
+  try {
+    const user = await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password);
+  } catch (err) {
+    const createUser = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
+
+    if (!createUser) {
+      return dispatch({
+        type: types.LOGIN_USER_FAIL
+      });
+    }
   }
+
+  return dispatch({
+    type: types.LOGIN_USER_SUCCESS,
+    payload: user
+  });
 };

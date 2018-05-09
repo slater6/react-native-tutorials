@@ -20,6 +20,11 @@ export default (state = initialState, action) => {
         ...state,
         password: action.payload
       };
+    case types.LOGIN_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload
+      };
     default:
       return state;
   }
