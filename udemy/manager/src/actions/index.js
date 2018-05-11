@@ -16,6 +16,10 @@ export const passwordChanged = text => {
 };
 
 export const loginUser = ({ email, password }) => async dispatch => {
+  dispatch({
+    type: types.LOGIN_USER
+  });
+
   try {
     const user = await firebase
       .auth()
@@ -25,11 +29,7 @@ export const loginUser = ({ email, password }) => async dispatch => {
       .auth()
       .createUserWithEmailAndPassword(email, password);
 
-    if (!createUser) {
-      return dispatch({
-        type: types.LOGIN_USER_FAIL
-      });
-    }
+    console.log(createUser);
   }
 
   return dispatch({

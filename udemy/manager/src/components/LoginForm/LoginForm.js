@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, CardSection, Input, Button } from '../common';
+import { Card, CardSection, Input, Button, Spinner } from '../common';
 import { emailChanged, passwordChanged, loginUser } from '../../actions';
 class LoginForm extends Component {
   onEmailChange = text => {
@@ -12,7 +12,20 @@ class LoginForm extends Component {
   };
 
   onSubmit = () => {
+    console.log('On Submit');
     this.props.loginUser(this.props.email, this.props.password);
+  };
+
+  renderError = () => {
+    if (this.props.error) {
+      return <p>this.props.error</p>;
+    }
+  };
+
+  renderLoader = () => {
+    if (this.props.loading) {
+      return <Spinner />;
+    }
   };
 
   render() {
@@ -37,7 +50,10 @@ class LoginForm extends Component {
           />
         </CardSection>
         <CardSection>
-          <Button title="Login" onPress={this.onSubmit} />
+          <Button title="Login" onPress={this.onSubmit}>
+            {this.renderLoader()}
+          </Button>
+          {this.renderError()}
         </CardSection>
       </Card>
     );
@@ -47,16 +63,16 @@ class LoginForm extends Component {
 const mapStateToProps = state => {
   return {
     email: state.auth.email,
-    password: state.auth.password
+    password: state.auth.password,
+    error: state.auth.error,
+    loading: state.auth.loading
   };
 };
 
-const mapActionsToProps = state => {
-  return {
-    emailChanged,
-    passwordChanged,
-    loginUser
-  };
+const mapActionsToProps = {
+  emailChanged,
+  passwordChanged,
+  loginUser
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(LoginForm);

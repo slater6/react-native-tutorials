@@ -20,10 +20,28 @@ export default (state = initialState, action) => {
         ...state,
         password: action.payload
       };
+    case types.LOGIN_USER:
+      console.log('Login User');
+      return {
+        ...state,
+        user: null,
+        error: '',
+        loading: true
+      };
     case types.LOGIN_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
+        error: '',
+        loading: false
+      };
+    case types.LOGIN_USER_FAIL:
+      return {
+        ...state,
+        user: null,
+        error: 'Authenctication Failed',
+        password: '',
+        loading: false
       };
     default:
       return state;
