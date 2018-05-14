@@ -24,12 +24,17 @@ export const loginUser = ({ email, password }) => async dispatch => {
     const user = await firebase
       .auth()
       .signInWithEmailAndPassword(email, password);
+    console.log('User', user);
   } catch (err) {
-    const createUser = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password);
-
-    console.log(createUser);
+    try {
+      const createUser = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      return dispatch({
+        type: types.LOGIN_USER_FAIL
+      });
+    }
   }
 
   return dispatch({

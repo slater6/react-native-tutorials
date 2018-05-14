@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Text } from 'react-native';
 import { Card, CardSection, Input, Button, Spinner } from '../common';
 import { emailChanged, passwordChanged, loginUser } from '../../actions';
 class LoginForm extends Component {
@@ -12,20 +13,15 @@ class LoginForm extends Component {
   };
 
   onSubmit = () => {
-    console.log('On Submit');
     this.props.loginUser(this.props.email, this.props.password);
-  };
-
-  renderError = () => {
-    if (this.props.error) {
-      return <p>this.props.error</p>;
-    }
   };
 
   renderLoader = () => {
     if (this.props.loading) {
       return <Spinner />;
     }
+
+    return <Button title="Login" onPress={this.onSubmit} />;
   };
 
   render() {
@@ -49,12 +45,8 @@ class LoginForm extends Component {
             value={password}
           />
         </CardSection>
-        <CardSection>
-          <Button title="Login" onPress={this.onSubmit}>
-            {this.renderLoader()}
-          </Button>
-          {this.renderError()}
-        </CardSection>
+        <Text>{this.props.error}</Text>
+        <CardSection>{this.renderLoader()}</CardSection>
       </Card>
     );
   }

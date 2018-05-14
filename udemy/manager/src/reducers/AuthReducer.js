@@ -36,6 +36,7 @@ export default (state = initialState, action) => {
         loading: false
       };
     case types.LOGIN_USER_FAIL:
+      console.log('Login Failed');
       return {
         ...state,
         user: null,
