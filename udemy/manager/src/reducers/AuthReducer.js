@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
         password: action.payload
       };
     case types.LOGIN_USER:
-      console.log('Login User');
       return {
         ...state,
         user: null,
@@ -32,11 +31,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        email: '',
+        password: '',
         error: '',
         loading: false
       };
     case types.LOGIN_USER_FAIL:
-      console.log('Login Failed');
       return {
         ...state,
         user: null,

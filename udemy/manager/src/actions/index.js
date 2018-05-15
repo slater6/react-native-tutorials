@@ -15,16 +15,13 @@ export const passwordChanged = text => {
   };
 };
 
-export const loginUser = ({ email, password }) => async dispatch => {
+export const loginUser = (email, password) => async dispatch => {
   dispatch({
     type: types.LOGIN_USER
   });
-
+  let user = null;
   try {
-    const user = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
-    console.log('User', user);
+    user = await firebase.auth().signInWithEmailAndPassword(email, password);
   } catch (err) {
     try {
       const createUser = await firebase
