@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 import * as types from './types';
 
 export const emailChanged = text => {
@@ -34,8 +35,10 @@ export const loginUser = (email, password) => async dispatch => {
     }
   }
 
-  return dispatch({
+  dispatch({
     type: types.LOGIN_USER_SUCCESS,
     payload: user
   });
+
+  Actions.main();
 };
