@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Picker } from 'react-native';
+import { Picker, Text } from 'react-native';
 import { employeeUpdate } from '../../actions';
 import { Card, CardSection, Input, Button } from '../common';
 
@@ -31,7 +31,8 @@ class EmployeeCreate extends Component {
             }
           />
         </CardSection>
-        <CardSection>
+        <CardSection style={{ flexDirection: 'column' }}>
+          <Text style={styles.pickerTextStyle}>Select Shift</Text>
           <Picker
             style={{ flex: 1 }}
             selectedValue={this.props.employee.shift}
@@ -55,6 +56,14 @@ class EmployeeCreate extends Component {
     );
   }
 }
+
+const styles = {
+  pickerTextStyle: {
+    flexDirection: 'column',
+    fontSize: 18,
+    paddingLeft: 20
+  }
+};
 
 const mapStateToProps = state => {
   return {
