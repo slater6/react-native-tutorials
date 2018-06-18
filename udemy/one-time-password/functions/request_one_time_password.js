@@ -10,7 +10,7 @@ module.exports = function (req, res) {
 
     const phone = String(req.body.phone).replace(/[^\d]/g, '');
 
-    admin.auth().getUser(phone).then(user => {
+    return admin.auth().getUser(phone).then(user => {
         const code = Math.floor(Math.random() * 8999 + 1000)
         twilio.messages.create({
             to: phone,
@@ -21,11 +21,11 @@ module.exports = function (req, res) {
                 return res.status(422).send(err)
             }
 
-            admin.database().ref('users/' + phone).update({
+            return admin.database().ref('users/' + phone).update({
                 code: code,
                 codeValid: true
             }, () => {
-                res.send({
+               return res.send({
                     success: true
                 })
             })
